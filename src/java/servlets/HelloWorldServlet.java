@@ -28,6 +28,16 @@ public class HelloWorldServlet extends HttpServlet {
         request.setAttribute("firstName", firstname);
         request.setAttribute("lastName", lastname);
         
+        // if the parameters dont exist or are empty, show the form again
+        if(firstname == null || firstname.equals("") || lastname == null || lastname.equals("")){
+           //Message to help the user
+            request.setAttribute("message", "Invalid Entry, Please Enter first and last name");
+            //forward the request and response objects to the JSP
+            getServletContext().getRequestDispatcher("/WEB-INF/helloWorldForm.jsp").forward(request,response);
+            return;           //Very important. Stops the code call
+
+        }
+        
         //diaplay the helloWorld JSP
         getServletContext().getRequestDispatcher("/WEB-INF/helloWorld.jsp").forward(request, response);
         
